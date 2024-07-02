@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>NVIDIA / VISTA-3D NIM</title>
+  <title>NVIDIA / MONAI MAISI</title>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
@@ -151,7 +151,6 @@
           border-spacing: 0;
           padding: 0;
           font-family: monospace;
-          color: black;
       }
 
       #runNIM {
@@ -188,151 +187,38 @@
           box-shadow: none;
       }
   </style>
-  <script defer src="index.js"></script>
+  <script defer src="maisiNIM.js"></script>
 </head>
 <body>
 <div id="demo-title-container">
   <div class="card">
-    <h1><span>NVIDIA</span> / VISTA-3D NIM</h1>
-    <p>VISTA-3D is a specialized interactive foundation model for 3D medical imaging. It excels in providing accurate
-      and adaptable segmentation analysis across anatomies and modalities. Utilizing a multi-head architecture, VISTA-3D
-      adapts to varying conditions and anatomical areas, helping guide users' annotation workflow. This model is for
-      research purposes and not for clinical usage.
-    </p>
+    <h1><span>NVIDIA</span> / Medical NIMs</h1>
+    <p>Playground for NVIDIA supported Medical/MONAI NIMs.</p>
     <div class="tags">
       <span class="tag">image segmentation</span>
       <span class="tag">interactive annotation</span>
+      <span class="tag">genai</span>
       <span class="tag">medical imaging</span>
     </div>
   </div>
 </div>
 <br />
 <div id="content" class="row" style="margin: 5px">
-  <div class="col-md-3 card2" style="height: 830px">
-    <form action="javascript:void(0);">
-      <div class="form-group">
-        <label for="imageURI">Image URI</label>
-        <!--        <input type="url" class="form-control" id="imageURI" value="http://10.117.3.221:3001/example-1.nii.gz">-->
-        <input type="url" class="form-control" id="imageURI"
-               value="https://assets.ngc.nvidia.com/products/api-catalog/vista3d/example-1.nii.gz">
-        <button class="btn-xs" style="width: 100%" id="loadImage">Load Image</button>
-      </div>
-      <hr>
-      <div class="form-group">
-        <label for="nimsURI">NIMS Endpoint</label>
-        <!--        <input type="url" class="form-control" id="nimsURI" value="http://10.117.3.221:8008/vista3d/inference">-->
-        <input type="url" class="form-control" id="nimsURI"
-               value="https://health.api.nvidia.com/v1/medicalimaging/nvidia/vista-3d">
-      </div>
-      <div class="form-group">
-        <label for="nimsAuthHeader">Auth Header</label>
-        <input type="text" class="form-control" id="nimsAuthHeader" value="" placeholder="Bearer <api_key>">
-      </div>
-      <hr>
-    </form>
-    <table class="mytable" style="width: 100%;">
-      <tbody>
-      <tr>
-        <td style="vertical-align: top;">
-          <div class="form-group">
-            <label for="clickPrompts">Labels <a class="ba" href="javascript:void(0);" id="newLabelLink">Add
-              New</a></label>
-            <select id="clickPrompts">
-              <option value="">-- select --</option>
-            </select>
-            <br />
-            <span style="font-size: smaller;font-family: sans-serif;color: darkgray;">Use Right click to add background points</span>
-            <span style="float: right; font-size: smaller; font-family: sans-serif;">Click Prompts:&nbsp;&nbsp;
-              <a class="ba" id="clearClicks" href="javascript:void(0);" style="color: gray">Clear</a> |
-              <a class="ba" id="clearAllClicks" href="javascript:void(0);">Clear All</a>
-            </span>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td style="float: right">
-          <br />
-          <button id="runNIM" disabled="">Run NIM</button>
-        </td>
-      </tr>
-      <tr>
-        <td style="text-align: center">
-          <br />
-          <p class="bg-warning" id="runStatus" style="display: none">Please wait while running NIM...</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="tag_head" id="annotatedTagsHead" style="display: none">
-            <span>Annotated Labels</span>
-            <br />
-            <div class="tag_list_wrapper" id="annotatedTags">
-            </div>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="col-xs-6 col-md-3">
+      <a href="/vista3d" class="thumbnail" style="color: black">&nbsp;VISTA-3D NIM
+      <img src="https://assets.ngc.nvidia.com/products/api-catalog/images/vista-3d.jpg" alt="...">
+    </a>
   </div>
-  <div class="col-md-9">
-    <progress class="progress-bar" max="100" style="width: 1170px; height: 4px; margin-bottom: 1px;"></progress>
-    <table class="mytable">
-      <tbody>
-      <tr>
-        <td rowspan="2" class="box">
-          <span style="color: darkgray; padding-left: 5px;" id="title_element1"></span>
-          <div id="element1" oncontextmenu="return false" style="height: 780px; width: 780px;"></div>
-        </td>
-        <td class="box">
-          <span style="color: darkgray; padding-left: 5px;" id="title_element2"></span>
-          <div id="element2" oncontextmenu="return false" style="height: 390px; width: 390px;"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="box">
-          <span style="color: darkgray; padding-left: 5px;" id="title_element3"></span>
-          <div id="element3" oncontextmenu="return false" style="height: 390px; width: 390px;"></div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="col-xs-6 col-md-3">
+    <a href="/maisi" class="thumbnail" style="color: black">&nbsp;MAISI NIM
+      <img src="https://developer-blogs.nvidia.com/wp-content/uploads/2024/03/nim-inference-microservices.png" alt="...">
+    </a>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <a href="/segmentation" class="thumbnail" style="color: black">&nbsp;SEGMENTATION NIM
+      <img src="https://developer-blogs.nvidia.com/wp-content/uploads/2024/03/nim-inference-microservices.png" alt="...">
+    </a>
   </div>
 </div>
-
-
-<!-- The modal -->
-<div class="modal fade" id="addNewLabelModal" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall"
-     aria-hidden="true" style="color: black">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="modalLabelSmall">Modal Title</h4>
-      </div>
-
-      <div class="modal-body">
-        <form id="myform">
-          <div class="form-group">
-            <label for="inputLabelIndex">Label Index</label>
-            <select class="form-control" id="inputLabelIndex">
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="inputLabelName">Label Name</label>
-            <input type="text" class="form-control" id="inputLabelName" required>
-          </div>
-          <button type="submit" class="btn btn-default" id="btnAddNewLabel">OK</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
 </body>
-<script>
-  $('#clickPrompts').selectize();
-</script>
-</html>
+

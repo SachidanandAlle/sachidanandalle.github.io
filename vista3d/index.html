@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NVIDIA / VISTA-3D NIM</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+          integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+          crossorigin="anonymous"></script>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+    integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+    integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-tagsinput@0.7.1/dist/bootstrap-tagsinput.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-tagsinput@0.7.1/dist/bootstrap-tagsinput.min.css" rel="stylesheet">
+
+  <style>
+      body {
+          background-color: #111827;
+          color: #f9fafb;
+          font-family: "Open Sans", sans-serif;
+      }
+
+      input, select {
+          color: black;
+          padding: 0.5rem;
+          border: 1px solid #ccc;
+          border-radius: 0.25rem;
+      }
+
+      button {
+          background-color: #76b900;
+          color: #f9fafb;
+          font-weight: bold;
+          padding: 0.5rem 1rem;
+          border-radius: 0.25rem;
+          cursor: pointer;
+      }
+
+      button:hover {
+          background-color: rgb(152, 228, 91);
+      }
+
+      button:disabled {
+          background-color: grey !important;
+      }
+
+      .card {
+          background: rgba(0, 0, 0, 0.5);
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .card2 {
+          background: white;
+          border-radius: 10px;
+          padding: 20px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          color: black;
+          font-family: "Open Sans", sans-serif;
+      }
+
+      h1 {
+          font-size: 24px;
+          margin-bottom: 10px;
+      }
+
+      h1 span {
+          color: #76B900; /* Green color for 'vista-3d' */
+      }
+
+      .tags {
+          margin: 10px 0 0 0;
+      }
+
+      .tag {
+          background-color: lightblue;
+          border-radius: 10px;
+          padding: 5px 15px;
+          font-size: 12px;
+          margin-right: 10px;
+          display: inline-block;
+          color: black;
+      }
+
+      .tag_list_wrapper {
+          margin: 10px 0 0 0;
+          color: gray;
+          font-size: smaller;
+      }
+
+      .tag_head {
+          color: gray;
+          font-size: smaller;
+      }
+
+      .tag_list {
+          font-size: 12px;
+          display: inline-block;
+          vertical-align: top;
+          background-color: lightgray;
+          border-radius: 10px;
+          margin-right: 10px;
+          margin-bottom: 5px;
+          padding: 5px 20px;
+          position: relative;
+          color: black;
+      }
+
+      .tag_list.tag_list_hide {
+          display: none;
+      }
+
+      .tag_list span {
+          position: absolute;
+          right: 6px;
+          cursor: pointer;
+          color: white;
+          font-weight: bolder;
+      }
+
+      p {
+          font-size: 14px;
+          line-height: 1.5;
+      }
+
+      .box {
+          border: 1px solid lightgray;
+      }
+
+      .mytable {
+          border: 0;
+          border-spacing: 0;
+          padding: 0;
+          font-family: monospace;
+          color: black;
+      }
+
+      #runNIM {
+          float: right;
+          background-color: #76b900; /* Green background */
+          color: black; /* White text */
+          padding: 10px 20px; /* Padding for the button */
+          border: none; /* No border */
+          border-radius: 5px; /* Rounded corners */
+          cursor: pointer; /* Pointer cursor on hover */
+          font-size: 14px; /* Larger font size for better readability */
+      }
+
+      .ba {
+          font-family: arial, sans-serif;
+          font-size: small;
+          color: darkgreen;
+      }
+
+      .ba:visited {
+          color: darkgreen;
+      }
+
+      .ba:hover {
+          color: darkgreen;
+      }
+
+      .ba:active {
+          color: darkgreen;
+      }
+
+      .bootstrap-tagsinput {
+          border: none;
+          box-shadow: none;
+      }
+  </style>
+  <script defer src="vista3dNIM.js"></script>
+</head>
+<body>
+<div id="demo-title-container">
+  <div class="card">
+    <h1><span>NVIDIA</span> / VISTA-3D NIM</h1>
+    <p>VISTA-3D is a specialized interactive foundation model for 3D medical imaging. It excels in providing accurate
+      and adaptable segmentation analysis across anatomies and modalities. Utilizing a multi-head architecture, VISTA-3D
+      adapts to varying conditions and anatomical areas, helping guide users' annotation workflow. This model is for
+      research purposes and not for clinical usage.
+    </p>
+    <div class="tags">
+      <span class="tag">image segmentation</span>
+      <span class="tag">interactive annotation</span>
+      <span class="tag">medical imaging</span>
+    </div>
+  </div>
+</div>
+<br />
+<div id="content" class="row" style="margin: 5px">
+  <div class="col-md-3 card2" style="height: 830px">
+    <form action="javascript:void(0);">
+      <div class="form-group">
+        <label for="imageURI">Image URI</label>
+        <!--        <input type="url" class="form-control" id="imageURI" value="http://10.117.3.221:3001/example-1.nii.gz">-->
+        <input type="url" class="form-control" id="imageURI"
+               value="https://assets.ngc.nvidia.com/products/api-catalog/vista3d/example-1.nii.gz">
+        <button class="btn-xs" style="width: 100%" id="loadImage">Load Image</button>
+      </div>
+      <hr>
+      <div class="form-group">
+        <label for="nimsURI">NIMS Endpoint</label>
+        <!--        <input type="url" class="form-control" id="nimsURI" value="http://10.117.3.221:8008/vista3d/inference">-->
+        <input type="url" class="form-control" id="nimsURI"
+               value="https://health.api.nvidia.com/v1/medicalimaging/nvidia/vista-3d">
+      </div>
+      <div class="form-group">
+        <label for="nimsAuthHeader">Auth Header</label>
+        <input type="text" class="form-control" id="nimsAuthHeader" value="" placeholder="Bearer <api_key>">
+      </div>
+      <hr>
+    </form>
+    <table class="mytable" style="width: 100%;">
+      <tbody>
+      <tr>
+        <td style="vertical-align: top;">
+          <div class="form-group">
+            <label for="clickPrompts">Labels <a class="ba" href="javascript:void(0);" id="newLabelLink">Add
+              New</a></label>
+            <select id="clickPrompts">
+              <option value="">-- select --</option>
+            </select>
+            <br />
+            <span style="font-size: smaller;font-family: sans-serif;color: darkgray;">Use Right click to add background points</span>
+            <span style="float: right; font-size: smaller; font-family: sans-serif;">Click Prompts:&nbsp;&nbsp;
+              <a class="ba" id="clearClicks" href="javascript:void(0);" style="color: gray">Clear</a> |
+              <a class="ba" id="clearAllClicks" href="javascript:void(0);">Clear All</a>
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="float: right">
+          <br />
+          <button id="runNIM" disabled="">Run NIM</button>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center">
+          <br />
+          <p class="bg-warning" id="runStatus" style="display: none">Please wait while running NIM...</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="tag_head" id="annotatedTagsHead" style="display: none">
+            <span>Annotated Labels</span>
+            <br />
+            <div class="tag_list_wrapper" id="annotatedTags">
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-9">
+    <progress class="progress-bar" max="100" style="width: 1170px; height: 4px; margin-bottom: 1px;"></progress>
+    <table class="mytable">
+      <tbody>
+      <tr>
+        <td rowspan="2" class="box">
+          <span style="color: darkgray; padding-left: 5px;" id="title_element1"></span>
+          <div id="element1" oncontextmenu="return false" style="height: 780px; width: 780px;"></div>
+        </td>
+        <td class="box">
+          <span style="color: darkgray; padding-left: 5px;" id="title_element2"></span>
+          <div id="element2" oncontextmenu="return false" style="height: 390px; width: 390px;"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="box">
+          <span style="color: darkgray; padding-left: 5px;" id="title_element3"></span>
+          <div id="element3" oncontextmenu="return false" style="height: 390px; width: 390px;"></div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- The modal -->
+<div class="modal fade" id="addNewLabelModal" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall"
+     aria-hidden="true" style="color: black">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="modalLabelSmall">Modal Title</h4>
+      </div>
+
+      <div class="modal-body">
+        <form id="myform">
+          <div class="form-group">
+            <label for="inputLabelIndex">Label Index</label>
+            <select class="form-control" id="inputLabelIndex">
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputLabelName">Label Name</label>
+            <input type="text" class="form-control" id="inputLabelName" required>
+          </div>
+          <button type="submit" class="btn btn-default" id="btnAddNewLabel">OK</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+<script>
+  $('#clickPrompts').selectize();
+</script>
+</html>
